@@ -5,26 +5,7 @@ import { Operative } from "./killteamjson"
 import "./table.css"
 import OPTable from "./components/OPTable"
 import GuessForm from "./components/GuessForm"
-import { cyrb128 } from "./util"
-
-function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  console.log('window', typeof window)
-  const [value, _setValue] = useState(() => {
-    if (typeof window === 'undefined') return defaultValue
-    const stored = localStorage.getItem(key)
-    if (!stored) {
-      localStorage.clear()
-    }
-    return stored !== null ? JSON.parse(stored) : defaultValue
-  })
-
-  function setValue(value: React.SetStateAction<T>) {
-    localStorage.setItem(key, JSON.stringify(value))
-    return _setValue(value)
-  }
-
-  return [value, setValue]
-}
+import { cyrb128, usePersistentState } from "./util"
 
 export default function Home() {
   const today = (new Date()).toISOString().slice(0, 10) // YYYY-MM-DD

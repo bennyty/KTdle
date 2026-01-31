@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from "react"
+
 // Hash function 
 // Public domain https://github.com/bryc/code/blob/master/jshash/PRNGs.md
 export function cyrb128(str: string) {
@@ -31,4 +33,23 @@ export function compareArrays<T>(a: T[], b: T[]): [boolean, number] {
         }
     }
     return [numSame === _a.length && _a.length === _b.length, numSame]
+}
+
+export function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  console.log('window', typeof window)
+  const [value, _setValue] = useState(() => {
+    if (typeof window === 'undefined') return defaultValue
+    const stored = localStorage.getItem(key)
+    if (!stored) {
+      localStorage.clear()
+    }
+    return stored !== null ? JSON.parse(stored) : defaultValue
+  })
+
+  function setValue(value: React.SetStateAction<T>) {
+    localStorage.setItem(key, JSON.stringify(value))
+    return _setValue(value)
+  }
+
+  return [value, setValue]
 }
