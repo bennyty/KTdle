@@ -10,7 +10,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
     return teams[0]
   }
   function getArchetypes(op: Operative) {
-    return killteams.get(op.killteamId)!.flatMap(kt => kt.archetypes.split('/'))
+    return killteams.get(op.killteamId)!.flatMap(kt => (kt.archetypes ?? '').split('/'))
   }
   function getWeaponTraits(op: Operative) {
     return Array.from(

@@ -1,5 +1,5 @@
 export interface WeaponProfile {
-    wepid: string;
+    wepId: string;
     seq: number;
     profileName: string;
     ATK: string;
@@ -37,7 +37,7 @@ export interface Operative {
     opTypeId: string;
     opTypeName: string;
     MOVE: string;
-    APL: string;
+    APL: number;
     SAVE: string;
     WOUNDS: number;
     keywords: string; // Comma-separated
@@ -72,7 +72,7 @@ export interface Killteam {
     killteamName: string;
     description: string; // Markdown (flavor)
     composition: string; // Markdown
-    archetypes: string; // Slash-delimited list
+    archetypes: string | null; // Slash-delimited list
     opTypes: Operative[];
     ploys: Ploy[];
     equipments: Equipment[];

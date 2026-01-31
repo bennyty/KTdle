@@ -7,24 +7,26 @@ import OPTable from "./components/OPTable"
 import GuessForm from "./components/GuessForm"
 import { cyrb128 } from "./util"
 
-export default function Home() {
-  function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-    console.log('window', typeof window)
+function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  console.log('window', typeof window)
+  const [value, _setValue] = useState(() => {
+    if (typeof window === 'undefined') return defaultValue
     const stored = localStorage.getItem(key)
-    const [value, _setValue] = useState(() => {
-      if (!stored) {
-        localStorage.clear()
-      }
-      return stored !== null ? JSON.parse(stored) : defaultValue
-    })
-
-    function setValue(value: React.SetStateAction<T>) {
-      localStorage.setItem(key, JSON.stringify(value))
-      return _setValue(value)
+    if (!stored) {
+      localStorage.clear()
     }
+    return stored !== null ? JSON.parse(stored) : defaultValue
+  })
 
-    return [value, setValue]
+  function setValue(value: React.SetStateAction<T>) {
+    localStorage.setItem(key, JSON.stringify(value))
+    return _setValue(value)
   }
+
+  return [value, setValue]
+}
+
+export default function Home() {
   const today = (new Date()).toISOString().slice(0, 10) // YYYY-MM-DD
   const [correctOperative] = useState<Operative>((() => {
     // Use today's date to pick a determinisically random operative
