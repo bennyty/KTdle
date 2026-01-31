@@ -1,0 +1,10 @@
+th,td {
+    padding: 8px;
+}
+th + th {
+    border-left: 1px solid #ddd;
+}
+
+td + td {
+    border-left: 1px solid #ddd;
+}
