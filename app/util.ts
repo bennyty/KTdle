@@ -36,7 +36,6 @@ export function compareArrays<T>(a: T[], b: T[]): [boolean, number] {
 }
 
 export function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  console.log('window', typeof window)
   const [value, _setValue] = useState(() => {
     if (typeof window === 'undefined') return defaultValue
     const stored = localStorage.getItem(key)
@@ -46,9 +45,12 @@ export function usePersistentState<T>(key: string, defaultValue: T): [T, React.D
     return stored !== null ? JSON.parse(stored) : defaultValue
   })
 
-  function setValue(value: React.SetStateAction<T>) {
-    localStorage.setItem(key, JSON.stringify(value))
-    return _setValue(value)
+  function setValue(newVal: React.SetStateAction<T>) {
+    const newValueOrFunction = (typeof newVal === 'function') ? (newVal as (prevState: T) => T)(value) : newVal
+    if (!newValueOrFunction) return
+    console.log(newValueOrFunction)
+    localStorage.setItem(key, JSON.stringify(newValueOrFunction))
+    return _setValue(newValueOrFunction)
   }
 
   return [value, setValue]

@@ -2,10 +2,10 @@
 import { operatives, operativeNames } from "./Team"
 import { useState } from "react"
 import { Operative } from "./killteamjson"
-import "./table.css"
 import OPTable from "./components/OPTable"
 import GuessForm from "./components/GuessForm"
 import { cyrb128, usePersistentState } from "./util"
+import OperativeCard from "./components/OperativeCard";
 
 export default function Home() {
   const today = (new Date()).toISOString().slice(0, 10) // YYYY-MM-DD
@@ -23,20 +23,30 @@ export default function Home() {
     }
     const operative = operatives.get(operativeName)!
     setGuesses(prev => [...prev, operative])
+    setPreviewOperative("")
+  }
+
+  const [previewOperative, setPreviewOperative] = useState<string>("");
+  function preview(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setPreviewOperative(value);
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
+      <header className="w-full py-4 px-8 bg-gray-900 text-white shadow-md">
+      <h1 className="text-3xl">KTdle</h1>
+      </header>
       <main className="
         flex flex-col
         items-center gap-8
         min-h-screen w-full
-        py-32 px-16
+        py-16 px-8
         bg-white dark:bg-black
       ">
-        <GuessForm submitGuess={submitGuess} operativeNames={operativeNames} />
-        Correct: {correctOperative.opTypeName}
         <OPTable correctOperative={correctOperative} guesses={guesses} />
+        <GuessForm submitGuess={submitGuess} preview={preview} operativeNames={operativeNames} />
+        <OperativeCard operative={operatives.get(previewOperative)!} />
       </main>
     </div>
   );
