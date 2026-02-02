@@ -18,7 +18,7 @@ export default function Home() {
   const [guesses, setGuesses] = usePersistentState<Operative[]>(today, [])
   function submitGuess(formData: any) {
     const operativeName = formData.get('operative')
-    if (!operatives.has(operativeName)) {
+    if (!operatives.has(operativeName) || guesses.find(g => g.opTypeName === operativeName)) {
       return
     }
     const operative = operatives.get(operativeName)!
@@ -27,10 +27,6 @@ export default function Home() {
   }
 
   const [previewOperative, setPreviewOperative] = useState<string>("");
-  function preview(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setPreviewOperative(value);
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
@@ -45,7 +41,7 @@ export default function Home() {
         bg-white dark:bg-black
       ">
         <OPTable correctOperative={correctOperative} guesses={guesses} />
-        <GuessForm submitGuess={submitGuess} preview={preview} operativeNames={operativeNames} />
+        <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operativeNames={operativeNames} />
         <OperativeCard operative={operatives.get(previewOperative)!} />
       </main>
     </div>

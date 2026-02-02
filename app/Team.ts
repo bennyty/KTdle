@@ -29,7 +29,6 @@ export const operatives =
                         .filter(isIncludedOperative)
                         .map(op => [op.opTypeName, op]))
     )
-// console.log(Array.from(operatives.keys()).length, new Set(operatives.keys()).size)
 export const operativeNames = Array.from(operatives.keys()).sort()
 
 export const killteams =

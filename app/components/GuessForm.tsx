@@ -1,39 +1,62 @@
-import { useState } from "react";
-import OperativeCard from "./OperativeCard";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useRef, useState } from "react";
 
 interface GuessFormProps {
   submitGuess: (formData: any) => void;
-  preview: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  preview: (e: string) => void;
   operativeNames: string[];
 }
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
+
+
 export default function GuessForm({ submitGuess, preview, operativeNames }: GuessFormProps) {
+  const [value, setValue] = useState("")
+  function clearAndSubmit() {
+    console.log("clear and submit", value);
+    const formData = new FormData()
+    formData.append('operative', value)
+    submitGuess(formData)
+    setValue("")
+  }
 
   return (
-    <div>
-      <form action={submitGuess}
-        className="flex max-w-lg gap-2">
-        <input type="text"
-          name="operative"
-          placeholder="Guess an operative"
-          list="operatives-list"
-          className="grow w-full rounded box-border border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
-          onChange={preview}
+    <form action={clearAndSubmit} className="flex w-6/12 min-w-sm gap-2">
+      <ThemeProvider theme={theme}>
+        <Autocomplete
+          options={operativeNames}
+          value={value}
+          autoSelect
+          autoComplete
+          autoHighlight
+          renderInput={(params) => (
+            <TextField {...params}
+              name="operative"
+              type="search"
+              placeholder="Guess an Operative"
+            />
+          )}
+          fullWidth
+          onChange={(e, value) => {
+            preview(value ?? "")
+            setValue(value ?? "")
+          }}
         />
-        <datalist id="operatives-list">
-          {operativeNames.map((name) => (
-            <option key={name} value={name} />
-          ))}
-        </datalist>
+      </ThemeProvider>
 
-        <button
-          className="px-6
-        rounded font-medium text-white
-        whitespace-nowrap
-        bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-        >
-          Submit Guess
-        </button>
-      </form>
-    </div>
+      <button
+        className="px-6
+          rounded font-medium text-white
+          whitespace-nowrap
+          bg-teal-500 hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+      >
+        Submit Guess
+      </button>
+    </form>
   )
 }

@@ -54,25 +54,25 @@ export default function OperativeCard({ operative }: { operative: Operative }) {
 
             {/* Weapons table */}
             <section className="p-4">
-                <table className="w-full rounded-md overflow-hidden">
+                <table className="w-full rounded-md text-center">
                     <thead>
                         <tr className="bg-gray-700/60 text-sm text-gray-200 uppercase font-semibold px-4 py-2 items-center">
                             <th>NAME</th>
-                            <th className="text-center">ATK</th>
-                            <th className="text-center">HIT</th>
-                            <th className="text-center">DMG</th>
-                            <th className="text-center">WR</th>
+                            <th>ATK</th>
+                            <th>HIT</th>
+                            <th>DMG</th>
+                            <th>Weapon Rules</th>
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody className="divide-y divide-gray-700">
                         {weaponProfiles.map(({ wepName, profile }) => (
-                            <tr className="divide-y divide-gray-700 bg-gray-800">
-                                <td className="text-center">{wepName}</td>
-                                <td className="text-center">{profile.ATK}</td>
-                                <td className="text-center">{profile.HIT}</td>
-                                <td className="text-center">{profile.DMG}</td>
-                                <td className="text-center text-sm text-gray-300">{renderWRForProfile(profile)}</td>
+                            <tr key={profile.wepprofileId}>
+                                <td>{wepName}</td>
+                                <td>{profile.ATK}</td>
+                                <td>{profile.HIT}</td>
+                                <td>{profile.DMG}</td>
+                                <td>{renderWRForProfile(profile)}</td>
                             </tr>
                         ))}
                     </tbody>

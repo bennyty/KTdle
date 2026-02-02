@@ -1,5 +1,6 @@
 export interface WeaponProfile {
     wepId: string;
+    wepprofileId: string;
     seq: number;
     profileName: string;
     ATK: string;

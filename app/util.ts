@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from "react"
 
 // Hash function 
@@ -48,7 +46,6 @@ export function usePersistentState<T>(key: string, defaultValue: T): [T, React.D
   function setValue(newVal: React.SetStateAction<T>) {
     const newValueOrFunction = (typeof newVal === 'function') ? (newVal as (prevState: T) => T)(value) : newVal
     if (!newValueOrFunction) return
-    console.log(newValueOrFunction)
     localStorage.setItem(key, JSON.stringify(newValueOrFunction))
     return _setValue(newValueOrFunction)
   }
