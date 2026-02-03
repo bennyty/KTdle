@@ -76,6 +76,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
         <th className={`${cellStyles}`}>Keywords</th>
         {/* <th>Team size</th> not int he data!! */}
         <th className={`${cellStyles}`}>Arche&shy;types</th>
+        <th className={`${cellStyles}`}>APL</th>
         <th className={`${cellStyles}`}>Move</th>
         <th className={`${cellStyles}`}>Wound</th>
         <th className={`${cellStyles}`}>Save</th>
@@ -95,6 +96,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
           <td className={cellStyles}>{renderExact(op.opTypeName, correctOperative.opTypeName)}</td>
           <td className={cellStyles}>{renderNumSame(getKeywords(op), getKeywords(correctOperative))}</td>
           <td className={cellStyles}>{renderNumSame(getArchetypes(op), getArchetypes(correctOperative))}</td>
+          <td className={cellStyles}>{renderHighLow(op.APL, correctOperative.APL)}</td>
           <td className={cellStyles}>{renderHighLow(toNumber(op.MOVE), toNumber(correctOperative.MOVE))}</td>
           <td className={cellStyles}>{renderHighLow(op.WOUNDS, correctOperative.WOUNDS)}</td>
           <td className={cellStyles}>{renderHighLow(toNumber(op.SAVE), toNumber(correctOperative.SAVE))}</td>
