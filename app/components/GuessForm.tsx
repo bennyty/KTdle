@@ -1,9 +1,9 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { useRef, useState } from "react";
-import { Operative } from "../killteamjson";
 import { matchSorter } from "match-sorter";
+import { useState } from "react";
+import { Operative } from "../killteamjson";
 
 interface GuessFormProps {
   submitGuess: (formData: any) => void;

@@ -78,7 +78,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
         <th className={`${cellStyles}`}>Arche&shy;types</th>
         <th className={`${cellStyles}`}>APL</th>
         <th className={`${cellStyles}`}>Move</th>
-        <th className={`${cellStyles}`}>Wound</th>
+        <th className={`${cellStyles}`}>Wounds</th>
         <th className={`${cellStyles}`}>Save</th>
         <th className={`${cellStyles}`}>Base size</th>
         <th className={`${cellStyles}`}>Abilities</th>
