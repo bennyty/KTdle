@@ -20,7 +20,6 @@ const theme = createTheme({
 export default function GuessForm({ submitGuess, preview, operatives }: GuessFormProps) {
   const [value, setValue] = useState<Operative | null>(null);
   function clearAndSubmit() {
-    console.log("clear and submit", value);
     const formData = new FormData()
     formData.append('operative', value?.opTypeName || "")
     submitGuess(formData)

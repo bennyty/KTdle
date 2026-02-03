@@ -20,10 +20,11 @@ export function cyrb128(str: string) {
     return [h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0]
 }
 
-export function compareArrays<T>(a: T[], b: T[]): [boolean, number] {
-    const _a = new Set(a)
-    const _b = new Set(b)
-    let numSame = _a.intersection(_b).size
+export function compareArrays<T>(a: string[], b: string[]): [boolean, number] {
+    const _a = new Set(a.map(x => x.trim()).filter(x => !!x))
+    const _b = new Set(b.map(x => x.trim()).filter(x => !!x))
+    const intersection = _a.intersection(_b)
+    let numSame = intersection.size
     return [numSame === a.length && a.length === b.length, numSame]
 }
 
