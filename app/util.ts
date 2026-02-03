@@ -21,16 +21,10 @@ export function cyrb128(str: string) {
 }
 
 export function compareArrays<T>(a: T[], b: T[]): [boolean, number] {
-    const _a = a.toSorted()
-    const _b = b.toSorted()
-    let minLength = Math.min(a.length, b.length)
-    let numSame = 0
-    for (var i = 0; i < minLength; i++) {
-        if (_a[i] === _b[i]) {
-            numSame++
-        }
-    }
-    return [numSame === _a.length && _a.length === _b.length, numSame]
+    const _a = new Set(a)
+    const _b = new Set(b)
+    let numSame = _a.intersection(_b).size
+    return [numSame === a.length && a.length === b.length, numSame]
 }
 
 export function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
