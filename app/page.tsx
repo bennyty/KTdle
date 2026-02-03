@@ -12,9 +12,13 @@ import Modal from '@mui/material/Modal';
 export default function Home() {
   const today = (new Date()).toISOString().slice(0, 10) // YYYY-MM-DD
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const openHelp = () => setHelpOpen(true);
+  const closeHelp = () => setHelpOpen(false);
+
+  const [winOpen, setWinOpen] = useState(false);
+  const openWin = () => setWinOpen(true);
+  const closeWin = () => setWinOpen(false);
 
   const [correctOperative] = useState<Operative>((() => {
     // Use today's date to pick a determinisically random operative
@@ -22,15 +26,17 @@ export default function Home() {
     const name = operativeNames[hash % operativeNames.length]
     return operatives.get(name)!
   })())
-  const [guesses, setGuesses] = usePersistentState<Operative[]>(today, [])
+  const [guesses, setGuesses] = usePersistentState<string[]>(today, [])
   function submitGuess(formData: any) {
-    const operativeName = formData.get('operative')
-    if (!operatives.has(operativeName) || guesses.find(g => g.opTypeName === operativeName)) {
+    const operativeName = formData.get('operative') as string
+    if (!operatives.has(operativeName) || guesses.find(g => g === operativeName)) {
       return
     }
-    const operative = operatives.get(operativeName)!
-    setGuesses(prev => [...prev, operative])
+    setGuesses(prev => [...prev, operativeName])
     setPreviewOperative("")
+    if (operativeName === correctOperative.opTypeName) {
+      openWin()
+    }
   }
 
   const [previewOperative, setPreviewOperative] = useState<string>("");
@@ -40,24 +46,10 @@ export default function Home() {
       <header className="w-full flex items-center justify-between py-4 px-8 bg-gray-900 text-white shadow-md">
         <h1 className="text-3xl">KTdle</h1>
         <button aria-label="Help" title="Help" className='cursor-pointer'
-          onClick={handleOpen}
+          onClick={openHelp}
         >
           <HelpOutlineRoundedIcon />
         </button>
-        <Modal open={open} onClose={handleClose}>
-          <div className="absolute left-1/2 top-1/2 -translate-1/2 p-4 bg-white dark:bg-black flex flex-col gap-4 max-w-xl w-11/12 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold text-black dark:text-white">How to Play</h2>
-            <p>To start, guess any operative. You have no information so guess anything.</p>
-            <p>When you guess, the table with show the operative's stats and their relationship to the correct operative.</p>
-            <p>An up arrow means that the correct operative has a higher value for that statistic, down arrow means it is lower. 3↑ means the correct operative could have a save of 4+.</p>
-            <p>A number in parentheses shows how many values in that category are the same between the guess and the correct operative. Seek and Destory, Recon (1) means the correct operative is on a Kill Team that shares one of those archetypes.</p>
-            <p>Use this information to inform your next guess. Keep guessing until you find the correct operative!</p>
-            <br />
-            <p>Inquisitorial Agents only contains operatives that are unique to that Kill Team. Operatives that could be requisitioned from other teams are only a part of those other teams.</p>
-            <br />
-            <p>Have fun!</p>
-          </div>
-        </Modal>
       </header>
       <main className="
         flex flex-col
@@ -72,6 +64,29 @@ export default function Home() {
         </div>
         <OperativeCard operative={operatives.get(previewOperative)!} />
       </main>
+        <Modal open={helpOpen} onClose={closeHelp}>
+          <div className="absolute left-1/2 top-1/2 -translate-1/2 p-4 bg-white dark:bg-black flex flex-col gap-4 max-w-xl w-11/12 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold text-black dark:text-white">How to Play</h2>
+            <p>To start, guess any operative. You have no information so guess anything.</p>
+            <p>When you guess, the table with show the operative's stats and their relationship to the correct operative.</p>
+            <p>An up arrow means that the correct operative has a higher value for that statistic, down arrow means it is lower. 3↑ means the correct operative could have a save of 4+.</p>
+            <p>A number in parentheses shows how many values in that category are the same between the guess and the correct operative. Seek and Destory, Recon (1) means the correct operative is on a Kill Team that shares one of those archetypes.</p>
+            <p>Use this information to inform your next guess. Keep guessing until you find the correct operative!</p>
+            <br />
+            <p>Inquisitorial Agents only contains operatives that are unique to that Kill Team. Operatives that could be requisitioned from other teams are only a part of those other teams.</p>
+            <br />
+            <p>Have fun!</p>
+          </div>
+        </Modal>
+        <Modal open={winOpen} onClose={closeWin}>
+          <div className="absolute left-1/2 top-1/2 -translate-1/2 p-4 bg-white dark:bg-black flex flex-col gap-4 max-w-xl w-11/12 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-center text-black dark:text-white">You Win!</h2>
+            <p className="text-center">The correct operative was <strong>{correctOperative.opTypeName}</strong>.</p>
+            <p className="text-center">Come back tomorrow for a new operative to guess!</p>
+          </div>
+        </Modal>
+
+
     </div>
   );
 }

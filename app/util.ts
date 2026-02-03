@@ -34,11 +34,12 @@ export function compareArrays<T>(a: T[], b: T[]): [boolean, number] {
 }
 
 export function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [value, _setValue] = useState(() => {
+  const [value, _setValue] = useState<T>(() => {
     if (typeof window === 'undefined') return defaultValue
     const stored = localStorage.getItem(key)
     if (!stored) {
       localStorage.clear()
+      return defaultValue
     }
     return stored !== null ? JSON.parse(stored) : defaultValue
   })

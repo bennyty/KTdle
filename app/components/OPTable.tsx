@@ -1,10 +1,12 @@
 import { Operative } from "../killteamjson";
-import { killteams } from "../Team";
+import { killteams, operatives } from "../Team";
 import { compareArrays } from "../util";
 
 
-export default function OPTable({ correctOperative, guesses }: { correctOperative: Operative, guesses: Operative[] }) {
+export default function OPTable({ correctOperative, guesses }: { correctOperative: Operative, guesses: string[] }) {
   const cellStyles = "p-1 lg:p-2"
+
+  const ops = guesses.map(name => operatives.get(name)!).filter(op => !!op)
 
   function getKTName(op: Operative) {
     const teams = killteams.get(op.killteamId)!.map(kt => kt.killteamName)
@@ -89,7 +91,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
     </thead>
 
     <tbody>
-      {guesses.map((op) =>
+      {ops.map((op) =>
         <tr key={op.opTypeId}
           className={`${cellStyles} text-center divide-x divide-gray-500`}
         >
