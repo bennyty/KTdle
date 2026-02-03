@@ -11,7 +11,7 @@ function renderWRForProfile(p: WeaponProfile) {
 export default function OperativeCard({ operative }: { operative: Operative }) {
     if (!operative) {
         return (
-            <article className="w-full flex flex-col aspect-3/1 bg-gray-800 text-gray-100 rounded-lg shadow-lg ring-1 ring-black/10 overflow-hidden">
+            <article className="w-full max-w-5xl mx-auto flex flex-col aspect-3/1 bg-gray-800 text-gray-100 rounded-lg shadow-lg ring-1 ring-black/10 overflow-hidden">
                 <div className="flex justify-between items-center gap-4 bg-gray-900 border-b-4 border-orange-500 p-4">
                     <h2 className="text-xl font-bold uppercase">Guess Preview</h2>
                 </div>
@@ -25,7 +25,7 @@ export default function OperativeCard({ operative }: { operative: Operative }) {
     const weaponProfiles = operative.weapons.flatMap(w => w.profiles.map(p => ({ wepName: w.wepName, profile: p })))
 
     return (
-        <article className="w-full bg-gray-800 text-gray-100 rounded-lg shadow-lg ring-1 ring-black/10 overflow-hidden">
+        <article className="w-full max-w-5xl mx-auto bg-gray-800 text-gray-100 rounded-lg shadow-lg ring-1 ring-black/10 overflow-hidden">
             {/* Top band */}
             <div className="flex justify-between items-center gap-4
         bg-gray-900 border-b-4 border-orange-500 p-4">

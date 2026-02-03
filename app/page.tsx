@@ -1,5 +1,5 @@
 'use client';
-import { operatives, operativeNames } from "./Team"
+import { operatives, data, operativeNames } from "./Team"
 import { useState } from "react"
 import { Operative } from "./killteamjson"
 import OPTable from "./components/OPTable"
@@ -35,13 +35,15 @@ export default function Home() {
       </header>
       <main className="
         flex flex-col
-        items-center gap-8
-        min-h-screen w-full
-        py-16 px-8
+        gap-8
+        min-h-screen
+        my-16
         bg-white dark:bg-black
       ">
         <OPTable correctOperative={correctOperative} guesses={guesses} />
-        <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operativeNames={operativeNames} />
+        <div className="mx-auto">
+          <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={Array.from(operatives.values())} />
+        </div>
         <OperativeCard operative={operatives.get(previewOperative)!} />
       </main>
     </div>
