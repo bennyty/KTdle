@@ -11,8 +11,9 @@ export async function loadKillTeamJson(url = DEFAULT_URL) {
 }
 
 function isIncludedTeam(killteam: Killteam) {
-    if (killteam.isHomebrew) return false
-    if (killteam.factionId === 'SPEC') return false
+    if (killteam.isHomebrew) return false // All the homebrew teams
+    if (killteam.factionId === 'SPEC') return false // Titus Misison Pack and NPOs
+    if (killteam.killteamId === 'IMP-SFV') return false // Strike Force Variel
     return true
 }
 function isIncludedOperative(operative: Operative) {

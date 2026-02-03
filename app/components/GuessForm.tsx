@@ -8,7 +8,7 @@ import { matchSorter } from "match-sorter";
 interface GuessFormProps {
   submitGuess: (formData: any) => void;
   preview: (e: string) => void;
-  operatives: Operative[];
+  operatives: Map<String, Operative>;
 }
 const theme = createTheme({
   colorSchemes: {
@@ -34,7 +34,7 @@ export default function GuessForm({ submitGuess, preview, operatives }: GuessFor
     <form action={clearAndSubmit} className="flex w-6/12 min-w-sm gap-2">
       <ThemeProvider theme={theme}>
         <Autocomplete
-          options={operatives}
+          options={Array.from(operatives.values())}
           getOptionLabel={o => o.opTypeName}
           value={value}
           autoSelect
@@ -51,6 +51,9 @@ export default function GuessForm({ submitGuess, preview, operatives }: GuessFor
           onChange={(e, value) => {
             preview(value?.opTypeName || "")
             setValue(value)
+          }}
+          onHighlightChange={(e, value) => {
+            preview(value?.opTypeName || "")
           }}
         />
       </ThemeProvider>

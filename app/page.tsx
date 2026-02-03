@@ -42,7 +42,7 @@ export default function Home() {
       ">
         <OPTable correctOperative={correctOperative} guesses={guesses} />
         <div className="mx-auto">
-          <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={Array.from(operatives.values())} />
+          <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={operatives} />
         </div>
         <OperativeCard operative={operatives.get(previewOperative)!} />
       </main>
