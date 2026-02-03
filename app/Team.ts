@@ -12,6 +12,7 @@ export async function loadKillTeamJson(url = DEFAULT_URL) {
 
 function isIncludedTeam(killteam: Killteam) {
     if (killteam.isHomebrew) return false
+    if (killteam.factionId === 'SPEC') return false
     return true
 }
 function isIncludedOperative(operative: Operative) {
