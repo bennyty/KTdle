@@ -23,7 +23,9 @@ export default function Home() {
   const [correctOperative] = useState<Operative>((() => {
     // Use today's date to pick a determinisically random operative
     const hash = cyrb128(today)[0]
+    console.debug(`${today} hash is ${hash}`)
     const name = operativeNames[hash % operativeNames.length]
+    console.debug("Today's operative is", name)
     return operatives.get(name)!
   })())
   const [guesses, setGuesses] = usePersistentState<string[]>(today, [])

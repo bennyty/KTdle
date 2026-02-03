@@ -97,18 +97,6 @@ export default function OperativeCard({ operative }: { operative: Operative }) {
                             )) : <div className="text-gray-400">No abilities</div>}
                         </div>
                     </div>
-
-                    <div className="w-64">
-                        <h3 className="text-sm font-semibold text-gray-200 mb-2">Options</h3>
-                        <div className="text-sm text-gray-300 space-y-2">
-                            {operative.options.length > 0 ? operative.options.map(o => (
-                                <div key={o.optionId} className="p-2 bg-gray-800/60 rounded border border-gray-700">
-                                    <div className="font-semibold text-gray-100">{o.optionName}</div>
-                                    <div className="text-gray-300 text-xs">{o.description}</div>
-                                </div>
-                            )) : <div className="text-gray-400">No options</div>}
-                        </div>
-                    </div>
                 </div>
 
                 <footer className="mt-4 pt-4 border-t border-gray-700 text-xs text-gray-400 flex items-center justify-between">
