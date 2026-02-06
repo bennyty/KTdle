@@ -14,21 +14,24 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
     return teams[0]
   }
   function getKeywords(op: Operative) {
-    return op.keywords.split(',').map(s => s.trim())
+    return op.keywords.split(',').map(s => s.trim()).filter(s => !!s)
   }
   function getArchetypes(op: Operative) {
     return killteams.get(op.killteamId)!.flatMap(kt => (kt.archetypes ?? '').split('/'))
   }
   function getWeaponTraits(op: Operative) {
-    return Array.from(
+    let traitsArray = Array.from(
       new Set(
         op.weapons
           .flatMap(w => w
             .profiles
-            .map(p => p.WR)
+            .flatMap(p => p.WR.split(','))
+            .map(s => s.trim())
+            .filter(traits => !!traits)
           )
       )
     )
+    return traitsArray
   }
   function getWeaponDamages(op: Operative) {
     return Array.from(
@@ -37,6 +40,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
           .flatMap(w => w
             .profiles
             .map(p => p.DMG)
+            .filter(dmg => !!dmg)
           )
       )
     )
