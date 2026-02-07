@@ -78,6 +78,9 @@ export default function Home() {
             <p>Inquisitorial Agents only contains operatives that are unique to that Kill Team. Operatives that could be requisitioned from other teams are only a part of those other teams.</p>
             <br />
             <p>Have fun!</p>
+            <br />
+            <br />
+            <p className="text-sm text-gray-500">KTdle version {process.env.APP_VERSION} (commit {process.env.COMMIT_HASH}). Data sourced from <a href="https://github.com/vjosset/killteamjson">killteamjson</a></p>
           </div>
         </Modal>
         <Modal open={winOpen} onClose={closeWin}>
