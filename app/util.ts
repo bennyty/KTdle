@@ -33,10 +33,9 @@ export function usePersistentState<T>(key: string, defaultValue: T): [T, React.D
     if (typeof window === 'undefined') return defaultValue
     const stored = localStorage.getItem(key)
     if (!stored) {
-      localStorage.clear()
       return defaultValue
     }
-    return stored !== null ? JSON.parse(stored) : defaultValue
+    return JSON.parse(stored)
   })
 
   function setValue(newVal: React.SetStateAction<T>) {

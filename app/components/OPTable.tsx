@@ -86,8 +86,9 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
         <th className={`${cellStyles}`}>Move</th>
         <th className={`${cellStyles}`}>Wounds</th>
         <th className={`${cellStyles}`}>Save</th>
-        <th className={`${cellStyles}`}>Base size</th>
-        <th className={`${cellStyles}`}>Abilities</th>
+        {/* <th className={`${cellStyles}`}>Base size</th> */}
+        <th className={`${cellStyles} cursor-help`} 
+          title="INCLUDES Faction Abilites due to data limitations">Abilities & Faction Rules</th>
         <th className={`${cellStyles}`}>Weapons</th>
         <th className={`${cellStyles}`}>Weapon damages</th>
         <th className={`${cellStyles}`}>Weapon traits</th>
@@ -106,7 +107,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
           <td className={cellStyles}>{renderHighLow(toNumber(op.MOVE), toNumber(correctOperative.MOVE))}</td>
           <td className={cellStyles}>{renderHighLow(op.WOUNDS, correctOperative.WOUNDS)}</td>
           <td className={cellStyles}>{renderHighLow(toNumber(op.SAVE), toNumber(correctOperative.SAVE))}</td>
-          <td className={cellStyles}>{renderHighLow(op.basesize, correctOperative.basesize)}</td>
+          {/* <td className={cellStyles}>{renderHighLow(op.basesize, correctOperative.basesize)}</td> */}
           <td className={cellStyles}>{renderHighLow(op.abilities.length, correctOperative.abilities.length)}</td>
           <td className={cellStyles}>{renderHighLow(op.weapons.length, correctOperative.weapons.length)}</td>
           <td className={cellStyles}>{renderNumSame(getWeaponDamages(op), getWeaponDamages(correctOperative))}</td>

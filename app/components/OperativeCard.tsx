@@ -87,7 +87,7 @@ export default function OperativeCard({ operative }: { operative: Operative }) {
             <section className="px-4 pb-4">
                 <div className="flex gap-4">
                     <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-gray-200 mb-2">Abilities</h3>
+                        <h3 className="text-sm font-semibold text-gray-200 mb-2">Abilities & Faction Rules</h3>
                         <div className="space-y-3 text-sm text-gray-300">
                             {operative.abilities.length > 0 ? operative.abilities.map(a => (
                                 <div key={a.abilityId}>
