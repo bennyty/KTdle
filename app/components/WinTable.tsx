@@ -101,6 +101,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
     <button className="mt-4 px-4 py-2 bg-fuchsia-900 text-white rounded cursor-pointer" onClick={() => {
       // console.log(strings)
       navigator.clipboard.writeText(`I guessed KTdle today in ${strings.length} guesses\n` + strings.join('\n'))
+      alert("Results copied to clipboard!")
     }
     }>
       Share results
