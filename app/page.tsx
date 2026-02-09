@@ -45,7 +45,7 @@ export default function Home() {
         </button>
       </header>
       {seed !== today && <span className="p-2 bg-yellow-100 dark:bg-yellow-900 text-black dark:text-white text-center">Random operative for {seed}</span>}
-      <KTdle seed={seed} />
+      <KTdle seed={seed} key={seed} />
       <Modal open={helpOpen} onClose={closeHelp}>
         <div className="absolute left-1/2 top-1/2 -translate-1/2 p-4 bg-white dark:bg-black flex flex-col gap-4 max-w-xl w-11/12 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
           <h2 className="text-xl font-bold text-black dark:text-white">How to Play</h2>
