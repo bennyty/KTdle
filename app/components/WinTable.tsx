@@ -54,14 +54,14 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
   function renderExact(guess: string, correct: string) {
     return guess === correct
       ? '✅'
-      : '⬜'
+      : '⬛'
   }
   function renderNumSame(guess: string[], correct: string[]) {
     const [same, numSame] = compareArrays(guess, correct)
     const guessJoin = guess.map(x => x.trim()).filter(x => !!x).join(', ')
     if (same) return '✅'
     if (numSame > 0) return '🟨'
-    return '⬜️'
+    return '⬛'
   }
   function renderHighLow(guess: number, correct: number) {
     if (guess === correct) {

@@ -1,14 +1,12 @@
 'use client';
-import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import { useState } from "react";
 import GuessForm from "./components/GuessForm";
 import OperativeCard from "./components/OperativeCard";
 import OPTable from "./components/OPTable";
+import WinTable from './components/WinTable';
 import { Operative } from "./killteamjson";
 import { operativeNames, operatives } from "./Team";
 import { cyrb128, usePersistentState } from "./util";
-import Modal from '@mui/material/Modal';
-import WinTable from './components/WinTable';
 
 export default function KTdle({ seed }: { seed: string }) {
 

@@ -1,37 +1,50 @@
 'use client';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
-import { useState } from "react";
-import GuessForm from "./components/GuessForm";
-import OperativeCard from "./components/OperativeCard";
-import OPTable from "./components/OPTable";
-import { Operative } from "./killteamjson";
-import { operativeNames, operatives } from "./Team";
-import { cyrb128, usePersistentState } from "./util";
+import ShuffleIcon from '@mui/icons-material/ShuffleOutlined';
 import Modal from '@mui/material/Modal';
-import WinTable from './components/WinTable';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useState } from "react";
 import KTdle from './KTdle';
-import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
+  const router = useRouter()
   const today = (new Date()).toISOString().slice(0, 10) // YYYY-MM-DD
   const params = useSearchParams()
-  const seed = params.get('day') ?? today
-  // console.debug("Using seed", seed)
+  const pathname = usePathname()
+  let seed = params.get('day') ?? today
 
   const [helpOpen, setHelpOpen] = useState(false);
   const openHelp = () => setHelpOpen(true);
   const closeHelp = () => setHelpOpen(false);
 
+  function getRandomDate(from: Date, to: Date) {
+    const fromTime = from.getTime();
+    const toTime = to.getTime();
+    return new Date(fromTime + Math.random() * (toTime - fromTime));
+}
+
+  function random() {
+    const randomSeed = getRandomDate(new Date(2024, 0, 1), new Date()).toISOString().slice(0, 10)
+    router.push(`${pathname}?day=${randomSeed}`)
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
-      <header className="w-full flex items-center justify-between py-4 px-8 bg-gray-900 text-white shadow-md">
-        <h1 className="text-3xl">KTdle</h1>
+      <header className="w-full flex items-center justify-end py-4 px-8 gap-4 bg-gray-900 text-white shadow-md">
+        <h1 className="text-3xl mr-auto"><Link href="/">KTdle</Link></h1>
+        <button aria-label="Randomize operative" title="Randomize" className='cursor-pointer'
+          onClick={random}
+        >
+          <ShuffleIcon />
+        </button>
         <button aria-label="Help" title="Help" className='cursor-pointer'
           onClick={openHelp}
         >
           <HelpOutlineRoundedIcon />
         </button>
       </header>
+      {seed !== today && <span className="p-2 bg-yellow-100 dark:bg-yellow-900 text-black dark:text-white text-center">Random operative for {seed}</span>}
       <KTdle seed={seed} />
       <Modal open={helpOpen} onClose={closeHelp}>
         <div className="absolute left-1/2 top-1/2 -translate-1/2 p-4 bg-white dark:bg-black flex flex-col gap-4 max-w-xl w-11/12 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
