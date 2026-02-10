@@ -1,5 +1,5 @@
 import { Operative } from "../killteamjson";
-import { killteams, operatives } from "../Team";
+import { getSanitizedWR, killteams, operatives } from "../Team";
 import { compareArrays } from "../util";
 
 
@@ -59,7 +59,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
       : <span>{guess}</span>
   }
   function renderNumSame(guess: string[], correct: string[]) {
-    const [same, numSame] = compareArrays(guess, correct)
+    const [same, numSame] = compareArrays(guess.map(getSanitizedWR), correct.map(getSanitizedWR))
     const guessJoin = guess.map(x => x.trim()).filter(x => !!x).join(', ')
     return same
       ? <span className="text-green-500 font-bold">{guessJoin} ✔</span>
