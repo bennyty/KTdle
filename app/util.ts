@@ -21,8 +21,8 @@ export function cyrb128(str: string) {
 }
 
 export function compareArrays<T>(a: string[], b: string[]): [boolean, number] {
-    const _a = new Set(a.map(x => x.trim()).filter(x => !!x))
-    const _b = new Set(b.map(x => x.trim()).filter(x => !!x))
+  const _a = new Set(a.map(x => x.trim()).filter(x => !!x))
+  const _b = new Set(b.map(x => x.trim()).filter(x => !!x))
   const intersection = _a.intersection(_b)
   let numSame = intersection.size
   return [numSame === a.length && a.length === b.length, numSame]

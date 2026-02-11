@@ -10,11 +10,6 @@ import { cyrb128, usePersistentState } from "./util";
 
 export default function KTdle({ seed }: { seed: string }) {
 
-  const [helpOpen, setHelpOpen] = useState(false);
-  const openHelp = () => setHelpOpen(true);
-  const closeHelp = () => setHelpOpen(false);
-
-
   const [correctOperative] = useState<Operative>((() => {
     // Use today's date to pick a determinisically random operative
     const hash = cyrb128(seed)[0]

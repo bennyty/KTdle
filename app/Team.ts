@@ -1,9 +1,9 @@
 import { Killteam, Operative, } from "./killteamjson"
-import kt24_raw from './kt24_v4.json'
+import kt24_raw from './killteams.json'
 import specials_raw from './specials.json'
 const kt24 = kt24_raw as Killteam[]
 
-const DEFAULT_URL = 'https://raw.githubusercontent.com/vjosset/killteamjson/refs/heads/main/kt24_v4.json'
+const DEFAULT_URL = 'https://ktdash.app/api/killteams?full=Y'
 export async function loadKillTeamJson(url = DEFAULT_URL) {
     // const res = await fetch(url, {cache: 'force-cache'} )
     // if (!res.ok) throw new Error(`Failed to load JSON: ${res.status} ${res.statusText}`)
