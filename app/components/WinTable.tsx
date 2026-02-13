@@ -1,56 +1,11 @@
 import { Operative } from "../killteamjson";
-import { getSanitizedWR, killteams, operatives } from "../Team";
-import { compareArrays } from "../util";
+import { getSanitizedWR, operatives } from "../Team";
+import { compareArrays, getAbilities, getArchetypes, getKeywords, getWeaponDamages, getWeaponTraits, toNumber } from "../util";
 
 
 export default function OPTable({ correctOperative, guesses }: { correctOperative: Operative, guesses: string[] }) {
   const ops = guesses.map(name => operatives.get(name)!).filter(op => !!op)
 
-  function getKTName(op: Operative) {
-    const teams = killteams.get(op.killteamId)!.map(kt => kt.killteamName)
-    if (teams.length !== 1) alert(`Operative ${op.opTypeName} has multiple teams: ${teams.join(', ')}`)
-    return teams[0]
-  }
-  function getKeywords(op: Operative) {
-    return op.keywords.split(',').map(s => s.trim()).filter(s => !!s)
-  }
-  function getArchetypes(op: Operative) {
-    return killteams.get(op.killteamId)!.flatMap(kt => (kt.archetypes ?? '').split('/'))
-  }
-  function getWeaponTraits(op: Operative) {
-    let traitsArray = Array.from(
-      new Set(
-        op.weapons
-          .flatMap(w => w
-            .profiles
-            .flatMap(p => p.WR.split(','))
-            .map(s => s.trim())
-            .filter(traits => !!traits)
-          )
-      )
-    )
-    return traitsArray
-  }
-  function getWeaponDamages(op: Operative) {
-    return Array.from(
-      new Set(
-        op.weapons
-          .flatMap(w => w
-            .profiles
-            .map(p => p.DMG)
-            .filter(dmg => !!dmg)
-          )
-      )
-    )
-  }
-  function toNumber(value: string): number {
-    const match = value.match(/(\d+)/)
-    if (match) {
-      return parseInt(match[0], 10)
-    }
-    alert(`Could not parse number from value: ${value}`)
-    return 0
-  }
   function renderExact(guess: string, correct: string) {
     return guess === correct
       ? '✅'
@@ -81,7 +36,7 @@ export default function OPTable({ correctOperative, guesses }: { correctOperativ
     renderHighLow(toNumber(op.MOVE), toNumber(correctOperative.MOVE)),
     renderHighLow(op.WOUNDS, correctOperative.WOUNDS),
     renderHighLow(toNumber(op.SAVE), toNumber(correctOperative.SAVE)),
-    renderHighLow(op.abilities.length, correctOperative.abilities.length),
+    renderHighLow(getAbilities(op).length, getAbilities(correctOperative).length),
     renderHighLow(op.weapons.length, correctOperative.weapons.length),
     renderNumSame(getWeaponDamages(op), getWeaponDamages(correctOperative)),
     renderNumSame(getWeaponTraits(op), getWeaponTraits(correctOperative))

@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { Operative } from "./killteamjson"
+import { killteams } from "./Team"
 
 // Hash function 
 // Public domain https://github.com/bryc/code/blob/master/jshash/PRNGs.md
@@ -46,4 +48,53 @@ export function usePersistentState<T>(key: string, defaultValue: T): [T, React.D
   }
 
   return [value, setValue]
+}
+
+export function getKTName(op: Operative) {
+  const teams = killteams.get(op.killteamId)!.map(kt => kt.killteamName)
+  if (teams.length !== 1) alert(`Operative ${op.opTypeName} has multiple teams: ${teams.join(', ')}`)
+  return teams[0]
+}
+export function getKeywords(op: Operative) {
+  return op.keywords.split(',').map(s => s.trim()).filter(s => !!s)
+}
+export function getArchetypes(op: Operative) {
+  return killteams.get(op.killteamId)!.flatMap(kt => (kt.archetypes ?? '').split('/'))
+}
+export function getWeaponTraits(op: Operative) {
+  let traitsArray = Array.from(
+    new Set(
+      op.weapons
+        .flatMap(w => w
+          .profiles
+          .flatMap(p => p.WR.split(','))
+          .map(s => s.trim())
+          .filter(traits => !!traits)
+        )
+    )
+  )
+  return traitsArray
+}
+export function getWeaponDamages(op: Operative) {
+  return Array.from(
+    new Set(
+      op.weapons
+        .flatMap(w => w
+          .profiles
+          .map(p => p.DMG)
+          .filter(dmg => !!dmg)
+        )
+    )
+  )
+}
+export function getAbilities(op: Operative) {
+  return op.abilities//.filter(a => !a.isFactionAbility)
+}
+export function toNumber(value: string): number {
+  const match = value.match(/(\d+)/)
+  if (match) {
+    return parseInt(match[0], 10)
+  }
+  alert(`Could not parse number from value: ${value}`)
+  return 0
 }

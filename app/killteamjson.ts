@@ -23,6 +23,7 @@ export interface Ability {
     abilityName: string;
     AP: number | null; // null for passive abilities
     description: string; // Markdown
+    isFactionAbility: boolean
 }
 
 export interface Option {
