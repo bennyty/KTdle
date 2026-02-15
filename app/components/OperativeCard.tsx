@@ -27,7 +27,7 @@ export default function OperativeCard({ operative }: { operative: Operative }) {
     return (
         <article className="w-full max-w-5xl mx-auto bg-gray-800 text-gray-100 rounded-lg shadow-lg ring-1 ring-black/10 overflow-hidden">
             {/* Top band */}
-            <div className="flex justify-between items-center gap-4
+            <div className="flex justify-between items-center gap-4 flex-wrap
         bg-gray-900 border-b-4 border-orange-500 p-4">
                 <h2 className="text-xl font-bold uppercase">{operative.opTypeName}</h2>
 

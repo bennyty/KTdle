@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-import GuessForm from "./components/GuessForm";
+import GuessForm, { GiveUpSymbol } from "./components/GuessForm";
 import OperativeCard from "./components/OperativeCard";
 import OPTable from "./components/OPTable";
 import WinTable from './components/WinTable';
@@ -21,8 +21,8 @@ export default function KTdle({ seed }: { seed: string }) {
   const [guesses, setGuesses] = usePersistentState<string[]>(seed, [])
   const [win, setWin] = useState(guesses.includes(correctOperative.opTypeName))
   const openWin = () => setWin(true);
-  function submitGuess(formData: any) {
-    const operativeName = formData.get('operative') as string
+  function submitGuess(guess: string | symbol) {
+    const operativeName = (guess === GiveUpSymbol) ? correctOperative.opTypeName : (guess as string)
     if (!operatives.has(operativeName) || guesses.find(g => g === operativeName)) {
       return
     }

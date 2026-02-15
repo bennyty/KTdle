@@ -16,13 +16,12 @@ const theme = createTheme({
   },
 });
 
+export const GiveUpSymbol = Symbol("I give up")
 
 export default function GuessForm({ submitGuess, preview, operatives }: GuessFormProps) {
   const [value, setValue] = useState<Operative | null>(null);
   function clearAndSubmit() {
-    const formData = new FormData()
-    formData.append('operative', value?.opTypeName || "")
-    submitGuess(formData)
+    submitGuess(value?.opTypeName)
     setValue(null)
   }
 
@@ -58,12 +57,27 @@ export default function GuessForm({ submitGuess, preview, operatives }: GuessFor
       </ThemeProvider>
 
       <button
-        className="px-6
+        className="lg:px-6 px-1
           rounded font-medium text-white
           whitespace-nowrap
-          bg-red-500 hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+          bg-green-500 hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+          type="submit"
       >
         Submit Guess
+      </button>
+      <button
+        className="lg:px-6 px-1
+          rounded font-medium text-white
+          whitespace-nowrap
+          bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+          onClick={(e) => {
+            e.preventDefault()
+            if (confirm("Really give up?")) {
+              submitGuess(GiveUpSymbol)
+            }
+          }}
+      >
+        Give Up
       </button>
     </form>
   )
