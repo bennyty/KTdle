@@ -69,7 +69,7 @@ export default function Home() {
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-6 bg-surface flex flex-col gap-4 max-w-xl w-11/12 border border-border rounded-lg shadow-2xl outline-none">
           <h2 className="text-2xl font-bold text-primary">How to Play</h2>
           <p>To start, guess any operative. You have no information to start with - so guess anything!</p>
-          <p>When you guess, the table with show the operative's stats and their relationship to the correct operative.</p>
+          <p>When you guess, the table will show the operative's stats and their relationship to the correct operative.</p>
           <p>An up arrow means that the correct operative has a higher value for that statistic, down arrow means it is lower. 3↑ means the correct operative could have a save of 4+.</p>
           <p>A number in parentheses shows how many values in that category are the same between the guess and the correct operative. Seek and Destroy, Recon (1) means the correct operative is on a Kill Team that shares one of those archetypes.</p>
           <p>Use this information to inform your next guess. Keep guessing until you find the correct operative!</p>
