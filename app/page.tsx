@@ -71,7 +71,7 @@ export default function Home() {
           <p>To start, guess any operative. You have no information to start with - so guess anything!</p>
           <p>When you guess, the table with show the operative's stats and their relationship to the correct operative.</p>
           <p>An up arrow means that the correct operative has a higher value for that statistic, down arrow means it is lower. 3↑ means the correct operative could have a save of 4+.</p>
-          <p>A number in parentheses shows how many values in that category are the same between the guess and the correct operative. Seek and Destory, Recon (1) means the correct operative is on a Kill Team that shares one of those archetypes.</p>
+          <p>A number in parentheses shows how many values in that category are the same between the guess and the correct operative. Seek and Destroy, Recon (1) means the correct operative is on a Kill Team that shares one of those archetypes.</p>
           <p>Use this information to inform your next guess. Keep guessing until you find the correct operative!</p>
           <br />
           <p>Inquisitorial Agents only contains operatives that are unique to that Kill Team. Operatives that could be requisitioned from other teams are only a part of those other teams.</p>
