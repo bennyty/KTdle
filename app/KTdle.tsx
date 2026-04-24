@@ -3,6 +3,7 @@ import { useState } from "react";
 import GuessForm, { GiveUpSymbol } from "./components/GuessForm";
 import OperativeCard from "./components/OperativeCard";
 import OPTable from "./components/OPTable";
+import OPTableMobile from "./components/OPTableMobile";
 import WinTable from './components/WinTable';
 import { Operative } from "./killteamjson";
 import { operativeNames, operatives } from "./Team";
@@ -41,7 +42,12 @@ export default function KTdle({ seed }: { seed: string }) {
         min-h-screen
         my-16
       ">
-    <OPTable correctOperative={correctOperative} guesses={guesses} />
+    <div className="hidden md:block">
+      <OPTable correctOperative={correctOperative} guesses={guesses} />
+    </div>
+    <div className="md:hidden mx-auto">
+      <OPTableMobile correctOperative={correctOperative} guesses={guesses} />
+    </div>
     <div className="flex justify-center">
       {win ? <WinTable correctOperative={correctOperative} guesses={guesses} /> : <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={operatives} />}
     </div>

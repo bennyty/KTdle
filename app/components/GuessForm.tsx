@@ -29,7 +29,7 @@ export default function GuessForm({ submitGuess, preview, operatives }: GuessFor
     matchSorter(options, inputValue, { keys: ['opTypeName', 'keywords'] })
 
   return (
-    <form action={clearAndSubmit} className="flex w-6/12 min-w-sm gap-2">
+    <form action={clearAndSubmit} className="flex w-full sm:w-10/12 md:w-6/12 min-w-sm gap-2">
       <ThemeProvider theme={theme}>
         <Autocomplete
           options={Array.from(operatives.values())}
