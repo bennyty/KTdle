@@ -21,7 +21,7 @@ export default function KTdle({ seed }: { seed: string }) {
   })())
   const [guesses, setGuesses] = usePersistentState<string[]>(seed, [])
   const [win, setWin] = useState(guesses.includes(correctOperative.opTypeName))
-  const openWin = () => setWin(true);
+  const [forfeit, setForfeit] = useState(false)
   function submitGuess(guess: string | symbol) {
     const operativeName = (guess === GiveUpSymbol) ? correctOperative.opTypeName : (guess as string)
     if (!operatives.has(operativeName) || guesses.find(g => g === operativeName)) {
@@ -29,8 +29,10 @@ export default function KTdle({ seed }: { seed: string }) {
     }
     setGuesses(prev => [...prev, operativeName])
     setPreviewOperative("")
-    if (operativeName === correctOperative.opTypeName) {
-      openWin()
+    if (guess === GiveUpSymbol) {
+      setForfeit(true)
+    } else if (operativeName === correctOperative.opTypeName) {
+      setWin(true)
     }
   }
 
@@ -49,7 +51,7 @@ export default function KTdle({ seed }: { seed: string }) {
       <OPTableMobile correctOperative={correctOperative} guesses={guesses} />
     </div>
     <div className="flex justify-center">
-      {win ? <WinTable correctOperative={correctOperative} guesses={guesses} /> : <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={operatives} />}
+      {win || forfeit ? <WinTable correctOperative={correctOperative} guesses={guesses} forfeit={forfeit} /> : <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={operatives} />}
     </div>
     <OperativeCard operative={operatives.get(previewOperative)!} />
   </main>
