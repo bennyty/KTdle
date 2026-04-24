@@ -58,7 +58,7 @@ export default function OPTableMobile({ correctOperative, guesses }: { correctOp
   }
 
   return <>
-    <span className="text-sm text-foreground">Mobile condensed view: tap an operative to see full details</span>
+    <span className="text-sm text-foreground">Tap a table row to see full details</span>
     <table>
       <thead>
         <tr className={`divide-x divide-border`}>
