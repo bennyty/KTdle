@@ -44,7 +44,7 @@ export default function KTdle({ seed }: { seed: string }) {
         min-h-screen
         my-16
       ">
-    <div className="hidden md:block">
+    <div className="hidden md:block mx-auto">
       <OPTable correctOperative={correctOperative} guesses={guesses} />
     </div>
     <div className="md:hidden mx-auto">

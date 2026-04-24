@@ -136,7 +136,7 @@ export default function OPTableMobile({ correctOperative, guesses }: { correctOp
             <span>{renderHighLow(toNumber(detailsOp.SAVE), toNumber(correctOperative.SAVE))}</span>
           </div>
           <div className="flex gap-2">
-            <span className="font-bold">Abilities:</span>
+            <span className="font-bold">Abilities & Faction Rules:</span>
             <span>{renderHighLow(getAbilities(detailsOp).length, getAbilities(correctOperative).length)}</span>
           </div>
           <div className="flex gap-2">
@@ -144,11 +144,11 @@ export default function OPTableMobile({ correctOperative, guesses }: { correctOp
             <span>{renderHighLow(detailsOp.weapons.length, correctOperative.weapons.length)}</span>
           </div>
           <div className="flex gap-2">
-            <span className="font-bold">Weapon Damages:</span>
+            <span className="font-bold">Weapon damages:</span>
             <span>{renderNumSame(getWeaponDamages(detailsOp), getWeaponDamages(correctOperative))}</span>
           </div>
           <div className="flex gap-2">
-            <span className="font-bold">Weapon Traits:</span>
+            <span className="font-bold">Weapon traits:</span>
             <span>{renderNumSame(getWeaponTraits(detailsOp), getWeaponTraits(correctOperative))}</span>
           </div>
         </div>
