@@ -66,7 +66,12 @@ export default function Home() {
       <KTdle seed={seed} key={seed} />
 
       <Modal open={helpOpen} onClose={closeHelp}>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 p-6 bg-surface flex flex-col gap-4 max-w-xl w-11/12 border border-border rounded-lg shadow-2xl outline-none">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+            p-6 bg-surface
+            flex flex-col gap-4
+            max-w-xl w-11/12 max-h-screen
+            overflow-scroll
+            border border-border rounded-lg shadow-2xl outline-none">
           <h2 className="text-2xl font-bold text-primary">How to Play</h2>
           <p>To start, guess any operative. You have no information to start with - so guess anything!</p>
           <p>When you guess, the table will show the operative's stats and their relationship to the correct operative.</p>
