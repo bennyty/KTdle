@@ -50,7 +50,8 @@ export default function KTdle({ seed }: { seed: string }) {
     <div className="md:hidden mx-auto">
       <OPTableMobile correctOperative={correctOperative} guesses={guesses} />
     </div>
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
+      {guesses.length < 2 ? <span className="m-1">Search by name or keywords (e.g. "Astartes" or "Leader")</span> : null}
       {win || forfeit ? <WinTable correctOperative={correctOperative} guesses={guesses} forfeit={forfeit} /> : <GuessForm submitGuess={submitGuess} preview={setPreviewOperative} operatives={operatives} />}
     </div>
     <OperativeCard operative={operatives.get(previewOperative)!} />
